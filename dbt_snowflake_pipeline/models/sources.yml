@@ -1,0 +1,146 @@
+version: 2
+
+sources:
+  - name: raw_data
+    database: dbt_db
+    schema: raw
+    tables:
+      - name: brands
+        description: "Table containing bicycle brands."
+        columns:
+          - name: brand_id
+            description: "Brand ID"
+          - name: brand_name
+            description: "Brand name"
+
+      - name: categories
+        description: "Table containing product categories."
+        columns:
+          - name: category_id
+            description: "Category ID"
+          - name: category_name
+            description: "Category name"
+
+      - name: customers
+        description: "Table containing customer information."
+        columns:
+          - name: customer_id
+            description: "Customer ID"
+          - name: first_name
+            description: "Customer's first name"
+          - name: last_name
+            description: "Customer's last name"
+          - name: phone
+            description: "Customer's phone number"
+          - name: email
+            description: "Customer's email address"
+          - name: street
+            description: "Customer's street address"
+          - name: city
+            description: "Customer's city"
+          - name: state
+            description: "Customer's state"
+          - name: zip_code
+            description: "Customer's zip code"
+
+      - name: products
+        description: "Table containing product information."
+        columns:
+          - name: product_id
+            description: "Product ID"
+          - name: product_name
+            description: "Product name"
+          - name: brand_id
+            description: "ID of the brand"
+          - name: category_id
+            description: "ID of the category"
+          - name: model_year
+            description: "Model year of the product"
+          - name: list_price
+            description: "List price of the product"
+
+      - name: stores
+        description: "Table containing store information."
+        columns:
+          - name: store_id
+            description: "Store ID"
+          - name: store_name
+            description: "Store name"
+          - name: phone
+            description: "Store phone number"
+          - name: email
+            description: "Store email address"
+          - name: street
+            description: "Store street address"
+          - name: city
+            description: "Store city"
+          - name: state
+            description: "Store state"
+          - name: zip_code
+            description: "Store zip code"
+
+      - name: staffs
+        description: "Table containing staff information."
+        columns:
+          - name: staff_id
+            description: "Staff ID"
+          - name: first_name
+            description: "Staff first name"
+          - name: last_name
+            description: "Staff last name"
+          - name: email
+            description: "Staff email address"
+          - name: phone
+            description: "Staff phone number"
+          - name: active
+            description: "Whether the staff is active (TRUE/FALSE)"
+          - name: store_id
+            description: "ID of the store the staff works in"
+          - name: manager_id
+            description: "ID of the manager (if any)"
+
+      - name: orders
+        description: "Table containing order information."
+        columns:
+          - name: order_id
+            description: "Order ID"
+          - name: customer_id
+            description: "ID of the customer who placed the order"
+          - name: order_status
+            description: "Status of the order"
+          - name: order_date
+            description: "Date the order was placed"
+          - name: required_date
+            description: "Date the order is required by"
+          - name: shipped_date
+            description: "Date the order was shipped"
+          - name: store_id
+            description: "ID of the store fulfilling the order"
+          - name: staff_id
+            description: "ID of the staff handling the order"
+
+      - name: order_items
+        description: "Table containing items within orders."
+        columns:
+          - name: order_id
+            description: "Order ID"
+          - name: item_id
+            description: "Item number within the order"
+          - name: product_id
+            description: "ID of the product"
+          - name: quantity
+            description: "Quantity of the product ordered"
+          - name: list_price
+            description: "List price of the product"
+          - name: discount
+            description: "Discount applied to the product"
+
+      - name: stocks
+        description: "Table containing stock quantities by store."
+        columns:
+          - name: store_id
+            description: "Store ID"
+          - name: product_id
+            description: "Product ID"
+          - name: quantity
+            description: "Quantity available in stock"
