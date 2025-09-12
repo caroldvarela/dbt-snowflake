@@ -1,30 +1,23 @@
-{{ 
-    config(
-        materialized='table'
-    ) 
-}}
+{{ config(materialized='table') }}
 
-with date_spine as (
-    {{ dbt_utils.date_spine(
-        start_date="'2016-01-01'",
-        end_date="'2018-12-31'",
-        datepart="day"
-    ) }}
-),
-
-expanded as (
-    select
-        to_number(to_char(date_day, 'YYYYMMDD')) as date_id,
-        date_day as full_date,
-        extract(year from date_day) as year,
-        extract(month from date_day) as month,
-        extract(day from date_day) as day,
-        extract(week from date_day) as week,
-        extract(doy from date_day) as day_of_year,
-        to_char(date_day, 'DY') as weekday_name,
-        case when extract(dow from date_day) in (0,6) then true else false end as is_weekend,
-        ceil(extract(month from date_day)/3.0) as quarter
-    from date_spine
+with base as (
+    select * from {{ ref('stg_dates') }}
 )
 
-select * from expanded
+select
+    to_number(to_char(date_day, 'YYYYMMDD')) as date_id,
+
+    date_day as full_date,
+
+    year_number       as year,
+    month_of_year     as month,
+    day_of_month      as day,
+    week_of_year      as week,
+    quarter_of_year   as quarter,
+
+    day_of_week_name  as weekday_name,
+    month_name        as month_name,
+
+    case when day_of_week in (0,6) then true else false end as is_weekend
+from base
+

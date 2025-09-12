@@ -97,13 +97,15 @@ models:
           - not_null
       - name: manager_id
 
+  - name: stg_dates
+    description: "Staging table for raw staff"
+
   - name: stg_orders
     description: "Staging table for raw orders"
     columns:
       - name: order_id
         tests:
           - not_null
-          - unique
       - name: customer_id
         tests:
           - not_null

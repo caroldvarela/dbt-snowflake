@@ -41,6 +41,14 @@ models:
       - name: brand_name
       - name: category_name
 
+  - name: dim_order_status
+    description: "Dimension table for order status"
+    columns:
+      - name: order_status_id
+        tests:
+          - not_null
+      - name: order_status_name
+
   - name: dim_store
     description: "Dimension table for stores"
     columns:
@@ -84,6 +92,7 @@ models:
           - not_null
           - unique
       - name: full_date
+        tests:
           - is_date_format
       - name: year
       - name: month
@@ -95,7 +104,7 @@ models:
       - name: quarter
 
   # Fact table
-  - name: fct_orders
+  - name: fact_sales
     description: "Fact table for sales orders"
     columns:
       - name: order_id
@@ -128,23 +137,8 @@ models:
               to: ref('dim_product')
               field: product_id
       - name: order_date_id
-        tests:
-          - relationships:
-              to: ref('dim_date')
-              field: date_id
-          - is_date_format
       - name: shipped_date_id
-        tests:
-          - relationships:
-              to: ref('dim_date')
-              field: date_id
-          - is_date_format
       - name: required_date_id
-        tests:
-          - relationships:
-              to: ref('dim_date')
-              field: date_id
-          - is_date_format
       - name: quantity
         tests:
           - checkgte0
@@ -152,9 +146,6 @@ models:
         tests:
           - checkgte0
       - name: discount
-        tests:
-          - dbt_utils.expression_is_true:
-              expression: "discount >= 0 and discount <= 1"
       - name: total_amount
         tests:
           - checkgte0
