@@ -1,0 +1,9 @@
+venv/
+
+dbt_snowflake_pipeline\dbt_packages
+
+dbt_snowflake_pipeline\logs
+
+dbt_snowflake_pipeline\target
+
+logs

@@ -1,0 +1,157 @@
+version: 2
+
+models:
+
+  - name: stg_customers
+    description: "Staging table for raw customers"
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+      - name: first_name
+        tests:
+          - not_null
+      - name: last_name
+        tests:
+          - not_null
+      - name: phone
+      - name: email
+      - name: street
+      - name: city
+      - name: state
+      - name: zip_code
+
+  - name: stg_products
+    description: "Staging table for raw products"
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - unique
+      - name: product_name
+        tests:
+          - not_null
+      - name: brand_id
+        tests:
+          - not_null
+      - name: category_id
+        tests:
+          - not_null
+      - name: model_year
+      - name: list_price
+
+  - name: stg_brands
+    description: "Staging table for raw brands"
+    columns:
+      - name: brand_id
+        tests:
+          - not_null
+          - unique
+      - name: brand_name
+        tests:
+          - not_null
+
+  - name: stg_categories
+    description: "Staging table for raw categories"
+    columns:
+      - name: category_id
+        tests:
+          - not_null
+          - unique
+      - name: category_name
+        tests:
+          - not_null
+
+  - name: stg_stores
+    description: "Staging table for raw stores"
+    columns:
+      - name: store_id
+        tests:
+          - not_null
+          - unique
+      - name: store_name
+        tests:
+          - not_null
+      - name: phone
+      - name: email
+      - name: street
+      - name: city
+      - name: state
+      - name: zip_code
+
+  - name: stg_staffs
+    description: "Staging table for raw staff"
+    columns:
+      - name: staff_id
+        tests:
+          - not_null
+          - unique
+      - name: first_name
+      - name: last_name
+      - name: email
+      - name: phone
+      - name: active
+      - name: store_id
+        tests:
+          - not_null
+      - name: manager_id
+
+  - name: stg_dates
+    description: "Staging table for raw staff"
+
+  - name: stg_orders
+    description: "Staging table for raw orders"
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+      - name: order_status
+      - name: order_date
+        tests:
+          - not_null
+          - is_date_format
+      - name: required_date
+        tests:
+          - is_date_format
+      - name: shipped_date
+        tests:
+          - is_date_format
+      - name: store_id
+        tests:
+          - not_null
+      - name: staff_id
+        tests:
+          - not_null
+
+  - name: stg_order_items
+    description: "Staging table for raw order items"
+    columns:
+      - name: order_id
+        tests:
+          - not_null
+      - name: item_id
+        tests:
+          - not_null
+      - name: product_id
+        tests:
+          - not_null
+      - name: quantity
+      - name: list_price
+      - name: discount
+
+  - name: stg_stocks
+    description: "Staging table for raw stocks"
+    columns:
+      - name: store_id
+        tests:
+          - not_null
+      - name: product_id
+        tests:
+          - not_null
+      - name: quantity
+
+
